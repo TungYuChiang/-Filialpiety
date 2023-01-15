@@ -8,12 +8,9 @@ collection_member= db["member"]
 
 #for item in collection_name.find():
 #   print(item['name'])
-
-item_1 = {
-    "name" : "江東諭",
-    "BirthDay": "88-03-19",
-    "sex" : "男",
-    "animal" : "兔子",
-    "address" : "彰化縣彰化市彰南路四段300巷33弄4號"
-    }
-collection_member.insert_one(item_1)
+memberlist = []
+print(type(collection_member.find()))
+for item in collection_member.find():
+    memberlist.append(item)
+for member in memberlist:
+    print(member['name'])

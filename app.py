@@ -8,6 +8,8 @@ myclient = pymongo.MongoClient("mongodb+srv://jackson:IM880319@immortal-free.rxz
 db = myclient["myFirstDatabase"]
 collection_member= db["member"]
 
+
+
 @app.route("/index")
 def index():
     return render_template("index.html")
@@ -16,9 +18,20 @@ def index():
 def login():
     return render_template("login.html")
 
+@app.route("/printer")
+def printer():
+    memberlist = []
+    for item in collection_member.find():
+        memberlist.append(item)
+    return render_template("printer.html", members = memberlist)
+
+
 @app.route('/table')
 def table():
-    return render_template("tables.html") 
+    memberlist = []
+    for item in collection_member.find():
+        memberlist.append(item)
+    return render_template("tables.html", members = memberlist) 
 
 @app.route('/register', methods=["POST","GET"])
 def register():
