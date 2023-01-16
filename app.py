@@ -65,18 +65,18 @@ def table():
 def register():
     if request.method == "POST":
         name = request.form.get("name")
-        age = request.form.get("age")
+        birthday = request.form.get("birthday")
         address = request.form.get("address")
         sex = request.form.get("sex")
         print("name : " + name)
         print("接收成功")
         item = {
             "name" : name,
-            "age" : age,
+            "birthday" : birthday,
             "address" : address,
             "sex" : sex
         }
-        collection_member.insert_one(item)
+        db.light.insert_one(item)
         return render_template("register.html")
     else:
         return render_template("register.html") 
