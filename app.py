@@ -4,7 +4,7 @@ import pymongo
 app = Flask(__name__)
 
 #data base initial
-myclient = pymongo.MongoClient("mongodb+srv://jackson:IM880319@immortal-free.rxzaq.mongodb.net/?retryWrites=true&w=majority") 
+myclient = pymongo.MongoClient("mongodb+srv://jackson:password@immortal-free.rxzaq.mongodb.net/?retryWrites=true&w=majority") 
 db = myclient["myFirstDatabase"]
 
 

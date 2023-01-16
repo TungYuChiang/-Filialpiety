@@ -23,10 +23,11 @@ def del_space(col_na):
 del_space(db.light)
     
 
-db.light.update_many({}, {"$set":{'light': "光明燈" }})
 count = 0
 for item in db.light.find():
     count += 1
     if item['light'] == '光明燈':
         print(item)
+
+
 print(count)
