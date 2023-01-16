@@ -4,13 +4,29 @@ myclient = pymongo.MongoClient("mongodb+srv://jackson:IM880319@immortal-free.rxz
 ##連接至database
 db = myclient["myFirstDatabase"]
 ##連接至database底下的collection 
-collection_member= db["member"]
+
 
 #for item in collection_name.find():
 #   print(item['name'])
-memberlist = []
-print(type(collection_member.find()))
-for item in collection_member.find():
-    memberlist.append(item)
-for member in memberlist:
-    print(member['name'])
+memberlist_boy = []
+memberlist_girl = []
+exe = []
+
+#刪除空白
+
+def del_space(col_na):
+    space = {'name':''}
+    sex_space = {'sex':''}
+    col_na.delete_one(space)
+    col_na.delete_one(sex_space)
+
+del_space(db.light)
+    
+
+db.light.update_many({}, {"$set":{'light': "光明燈" }})
+count = 0
+for item in db.light.find():
+    count += 1
+    if item['light'] == '光明燈':
+        print(item)
+print(count)

@@ -6,7 +6,7 @@ app = Flask(__name__)
 #data base initial
 myclient = pymongo.MongoClient("mongodb+srv://jackson:IM880319@immortal-free.rxzaq.mongodb.net/?retryWrites=true&w=majority") 
 db = myclient["myFirstDatabase"]
-collection_member= db["member"]
+
 
 
 
@@ -18,18 +18,46 @@ def index():
 def login():
     return render_template("login.html")
 
-@app.route("/printer")
+#列印男生光明燈
+@app.route("/printer_boy_light")
 def printer():
     memberlist = []
-    for item in collection_member.find():
-        memberlist.append(item)
+    for item in db.light.find():
+        if(item['sex'] == '男' and item['light'] == '光明燈'):
+            memberlist.append(item)
+    return render_template("printer.html", members = memberlist)
+#列印女生光明燈
+@app.route("/printer_girl_light")
+def printer_g():
+    memberlist = []
+    for item in db.light.find():
+        if(item['sex'] == '女' and item['light'] == '光明燈'):
+            memberlist.append(item)
+    return render_template("printer.html", members = memberlist)
+
+#列印男生財神燈
+@app.route("/printer_boy_money")
+def printer_b_m():
+    memberlist = []
+    for item in db.light.find():
+        if(item['sex'] == '男' and item['light'] == '財神燈' ):
+            memberlist.append(item)
+    return render_template("printer.html", members = memberlist)
+
+#列印女生財神燈
+@app.route("/printer_girl_money")
+def printer_g_m():
+    memberlist = []
+    for item in db.light.find():
+        if(item['sex'] == '女' and item['light'] == '財神燈'):
+            memberlist.append(item)
     return render_template("printer.html", members = memberlist)
 
 
 @app.route('/table')
 def table():
     memberlist = []
-    for item in collection_member.find():
+    for item in db.light.find():
         memberlist.append(item)
     return render_template("tables.html", members = memberlist) 
 
@@ -65,12 +93,12 @@ def name():
         name_4 = request.form.get("name_4")
         sex_4 = request.form.get("sex_4")
         mylist = [
-            {"name" : name_1, "sex" : sex_1},
-            {"name" : name_2, "sex" : sex_2},
-            {"name" : name_3, "sex" : sex_3},
-            {"name" : name_4, "sex" : sex_4},
+            {"name" : name_1, "sex" : sex_1, 'light' : '財神燈'},
+            {"name" : name_2, "sex" : sex_2, 'light' : '財神燈'},
+            {"name" : name_3, "sex" : sex_3, 'light' : '財神燈'},
+            {"name" : name_4, "sex" : sex_4, 'light' : '財神燈'},
         ]
-        collection_member.insert_many(mylist)
+        db.light.insert_many(mylist)
         print("name_1 : " + name_1)
         print("name_2 : " + name_2)
         print("name_3 : " + name_3)

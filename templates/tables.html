@@ -309,6 +309,7 @@
                                             <th>住址</th>
                                             <th>年齡</th>
                                             <th>性別</th>
+                                            <th>點燈</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
@@ -317,6 +318,7 @@
                                             <th>住址</th>
                                             <th>年齡</th>
                                             <th>性別</th>
+                                            <th>點燈</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
@@ -326,6 +328,11 @@
                                             <td>{{member['address']}}</td>
                                             <td>{{member['age']}}</td>
                                             <td>{{member['sex']}}</td>
+                                            {% if member['light'] == '光明燈' %}
+                                            <td>光明燈</td>
+                                            {% else %}
+                                            <td>財神燈</td>
+                                            {% endif %}
                                         </tr>  
                                         {%endfor%}                                      
                                     </tbody>
@@ -338,16 +345,23 @@
                 <!-- /.container-fluid -->
                 <div class="container">
                     <div class="row justify-content-end">
-                        <div class="col-4 justify-content-end">
                             <div class="row justify-content-end">
                                 <a href="/name" class="btn btn-info btn-icon-split" style="margin: 5px;" >
                                     <span class="text">新增會員</span>
                                 </a>  
-                                <a href="/printer" class="btn btn-info btn-icon-split " style="margin: 5px;">
-                                    <span class="text">列印</span>
+                                <a href="/printer_boy_light" class="btn btn-info btn-icon-split " style="margin: 5px;">
+                                    <span class="text">列印男生光明燈</span>
                                 </a> 
-                            </div>
-                        </div>
+                                <a href="/printer_girl_light" class="btn btn-info btn-icon-split " style="margin: 5px;">
+                                    <span class="text">列印女生光明燈</span>
+                                </a> 
+                                <a href="/printer_boy_money" class="btn btn-info btn-icon-split " style="margin: 5px;">
+                                    <span class="text">列印男生財神燈</span>
+                                </a> 
+                                <a href="/printer_girl_money" class="btn btn-info btn-icon-split " style="margin: 5px;">
+                                    <span class="text">列印女生財神燈</span>
+                                </a> 
+                            </div> 
                     </div>
                 </div>
 
