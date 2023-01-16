@@ -53,6 +53,34 @@ def register():
     else:
         return render_template("register.html") 
 
+@app.route('/name', methods=["POST","GET"])
+def name():
+    if request.method == "POST":
+        name_1 = request.form.get("name_1")
+        sex_1 = request.form.get("sex_1")
+        name_2 = request.form.get("name_2")
+        sex_2 = request.form.get("sex_2")
+        name_3 = request.form.get("name_3")
+        sex_3 = request.form.get("sex_3")
+        name_4 = request.form.get("name_4")
+        sex_4 = request.form.get("sex_4")
+        mylist = [
+            {"name" : name_1, "sex" : sex_1},
+            {"name" : name_2, "sex" : sex_2},
+            {"name" : name_3, "sex" : sex_3},
+            {"name" : name_4, "sex" : sex_4},
+        ]
+        collection_member.insert_many(mylist)
+        print("name_1 : " + name_1)
+        print("name_2 : " + name_2)
+        print("name_3 : " + name_3)
+        print("name_4 : " + name_4)
+        print("接收成功")
+        return render_template("name.html")
+    else :
+        return render_template("name.html")
+
+
 if __name__ == '__main__':
     #定義app在8080埠運行
     app.run(host="localhost",port=8000)
