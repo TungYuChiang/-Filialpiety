@@ -42,7 +42,7 @@ def printer_b_m():
     for item in db.light.find():
         if(item['sex'] == '男' and item['light'] == '財神燈' ):
             memberlist.append(item)
-    return render_template("printer.html", members = memberlist)
+    return render_template("printer_m.html", members = memberlist)
 
 #列印女生財神燈
 @app.route("/printer_girl_money")
@@ -51,7 +51,8 @@ def printer_g_m():
     for item in db.light.find():
         if(item['sex'] == '女' and item['light'] == '財神燈'):
             memberlist.append(item)
-    return render_template("printer.html", members = memberlist)
+    return render_template("printer_m.html", members = memberlist)
+
 
 
 @app.route('/table')

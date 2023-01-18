@@ -20,13 +20,17 @@
 <body>
 
     <div >
-        <div class="printed" style="display:flex;flex-wrap: wrap;align-items: center;justify-content: center;">   
-            {%for member in members%}  
+        <div class="printed" style="display:flex;flex-wrap: wrap;align-items: center;justify-content: center;">       
             <div style="position:relative;display: flex;flex-direction: column;justify-content: center;align-items: center;">
                 <img src="/static/img/光明燈底圖.jpg" alt="光明燈" style="width:4.1cm;height: 2.3cm;margin: 0rem;" >
-                <p style="top:40% ;position: absolute;text-align: center;color: blue;font-size: 1.5rem;font-weight: bold;text-shadow: -1px -1px 0 white,1px -1px 0 white,-1px 1px 0 white,1px 1px 0 white;">{{member['name']}}</p>
+                <p style="top:40% ;position: absolute;text-align: center;color: blue;font-size: 1.5rem;font-weight: bold;text-shadow: -1px -1px 0 white,1px -1px 0 white,-1px 1px 0 white,1px 1px 0 white;">
+                 4.1/2.3 </p>
             </div>
-            {%endfor%}
+            <div style="position:relative;display: flex;flex-direction: column;justify-content: center;align-items: center;">
+                <img src="/static/img/光明燈底圖.jpg" alt="光明燈" style="width:4.2cm;height: 2.4cm;margin: 0rem;" >
+                <p style="top:40% ;position: absolute;text-align: center;color: blue;font-size: 1.5rem;font-weight: bold;text-shadow: -1px -1px 0 white,1px -1px 0 white,-1px 1px 0 white,1px 1px 0 white;">
+                 4.2/2.4 </p>
+            </div>
         </div>
     </div>
 
