@@ -310,6 +310,7 @@
                                             <th>年齡</th>
                                             <th>性別</th>
                                             <th>點燈</th>
+                                            <th>功能</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
@@ -319,12 +320,13 @@
                                             <th>年齡</th>
                                             <th>性別</th>
                                             <th>點燈</th>
+                                            <th>功能</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
                                         {%for member in members%}
                                         <tr>
-                                            <td>{{member['name']}}</td>
+                                            <td name = "name{{ loop.index }}" value = "{{member['name']}}">{{member['name']}}</td>
                                             <td>{{member['address']}}</td>
                                             <td>{{member['age']}}</td>
                                             <td>{{member['sex']}}</td>
@@ -333,6 +335,10 @@
                                             {% else %}
                                             <td>財神燈</td>
                                             {% endif %}
+                                            <td><a href="/register" class="btn btn-info btn-icon-split" style="margin: 0px;" >
+                                                    <span class="text">修改</span>
+                                                </a>
+                                            </td>
                                         </tr>  
                                         {%endfor%}                                      
                                     </tbody>

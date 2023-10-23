@@ -64,7 +64,10 @@ def register():
         return render_template("register.html")
     else:
         return render_template("register.html") 
-
+    
+@app.route('/update', methods=["POST","GET"]) 
+def update():
+    return 
 
 if __name__ == '__main__':
     #定義app在8080埠運行
