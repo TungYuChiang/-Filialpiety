@@ -21,17 +21,20 @@ def del_member(col_name, name):
     tmp = {'name' : name }
     col_name.delete_one(tmp)
     print("成功刪除"+ name)
-
-def update_light(col_name, name):
+#更新資訊參數為collection 
+def update(col_name, name, attr, val):
     myquery = {'name':name}
-    newvalues = { "$set": { 'light': '光明燈' } }
-    x = col_name.update_one(myquery, newvalues)
-    print(x, "文档已修改")
+    newvalues = { "$set": { attr: val } }
+    x = col_name.update_many(myquery, newvalues)
+    print(name+attr+'已修改為'+val)
 #c_name = ['張法聖', '沈睿賢', '吳昱慧', '賴年盛', '王冠琪', '賴明希', '嚴漢枝', '湯成禧', '張吉宏', '湯成茵','張肯宥']
 #for name in c_name:
 #    update_light(db.light, name)
-#del_member(db.light, '譚春艷')
-del_space(db.light)
+#del_member(db.light, '湯熙熊')
+#del_space(db.light)
+update(db.light, '謝明惠', 'sex', '女')
+
+
     
 
 

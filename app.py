@@ -2,12 +2,10 @@ from flask import Flask, render_template, request, redirect, url_for
 import pymongo
 
 app = Flask(__name__)
-
+app.config.from_pyfile('config.py')
 #data base initial
-myclient = pymongo.MongoClient("mongodb+srv://jackson:password@immortal-free.rxzaq.mongodb.net/?retryWrites=true&w=majority") 
+myclient = pymongo.MongoClient(app.config['MONGO_URL']) 
 db = myclient["myFirstDatabase"]
-
-
 
 
 @app.route("/index")
@@ -18,42 +16,22 @@ def index():
 def login():
     return render_template("login.html")
 
-#列印男生光明燈
-@app.route("/printer_boy_light")
-def printer():
+#列印功能
+@app.route("/printer/<gender>/<light_type>")
+def printer(gender, light_type):
     memberlist = []
+    
     for item in db.light.find():
-        if(item['sex'] == '男' and item['light'] == '光明燈'):
-            memberlist.append(item)
-    return render_template("printer.html", members = memberlist)
-#列印女生光明燈
-@app.route("/printer_girl_light")
-def printer_g():
-    memberlist = []
-    for item in db.light.find():
-        if(item['sex'] == '女' and item['light'] == '光明燈'):
-            memberlist.append(item)
-    return render_template("printer.html", members = memberlist)
-
-#列印男生財神燈
-@app.route("/printer_boy_money")
-def printer_b_m():
-    memberlist = []
-    for item in db.light.find():
-        if(item['sex'] == '男' and item['light'] == '財神燈' ):
-            memberlist.append(item)
-    return render_template("printer_m.html", members = memberlist)
-
-#列印女生財神燈
-@app.route("/printer_girl_money")
-def printer_g_m():
-    memberlist = []
-    for item in db.light.find():
-        if(item['sex'] == '女' and item['light'] == '財神燈'):
-            memberlist.append(item)
-    return render_template("printer_m.html", members = memberlist)
-
-
+        if (gender == 'boy' and item['sex'] == '男') or \
+           (gender == 'girl' and item['sex'] == '女'):
+            if light_type == 'light' and item['light'] == '光明燈':
+                memberlist.append(item)
+            elif light_type == 'money' and item['light'] == '財神燈':
+                memberlist.append(item)
+    
+    template_name = "printer.html" if light_type == 'light' else "printer_m.html"
+    
+    return render_template(template_name, members=memberlist)
 
 @app.route('/table')
 def table():
@@ -62,52 +40,30 @@ def table():
         memberlist.append(item)
     return render_template("tables.html", members = memberlist) 
 
+#註冊
 @app.route('/register', methods=["POST","GET"])
 def register():
     if request.method == "POST":
+
         name = request.form.get("name")
         birthday = request.form.get("birthday")
         address = request.form.get("address")
         sex = request.form.get("sex")
-        print("name : " + name)
-        print("接收成功")
+        light = request.form.get("light")
+
         item = {
             "name" : name,
             "birthday" : birthday,
             "address" : address,
-            "sex" : sex
+            "sex" : sex,
+            "light" : light
         }
+
         db.light.insert_one(item)
+
         return render_template("register.html")
     else:
         return render_template("register.html") 
-
-@app.route('/name', methods=["POST","GET"])
-def name():
-    if request.method == "POST":
-        name_1 = request.form.get("name_1")
-        sex_1 = request.form.get("sex_1")
-        name_2 = request.form.get("name_2")
-        sex_2 = request.form.get("sex_2")
-        name_3 = request.form.get("name_3")
-        sex_3 = request.form.get("sex_3")
-        name_4 = request.form.get("name_4")
-        sex_4 = request.form.get("sex_4")
-        mylist = [
-            {"name" : name_1, "sex" : sex_1, 'light' : '財神燈'},
-            {"name" : name_2, "sex" : sex_2, 'light' : '財神燈'},
-            {"name" : name_3, "sex" : sex_3, 'light' : '財神燈'},
-            {"name" : name_4, "sex" : sex_4, 'light' : '財神燈'},
-        ]
-        db.light.insert_many(mylist)
-        print("name_1 : " + name_1)
-        print("name_2 : " + name_2)
-        print("name_3 : " + name_3)
-        print("name_4 : " + name_4)
-        print("接收成功")
-        return render_template("name.html")
-    else :
-        return render_template("name.html")
 
 
 if __name__ == '__main__':
