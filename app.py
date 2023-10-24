@@ -65,9 +65,26 @@ def register():
     else:
         return render_template("register.html") 
     
-@app.route('/update', methods=["POST","GET"]) 
-def update():
-    return 
+@app.route('/update/<string:name>', methods=["POST","GET"]) 
+def update(name):
+    if request.method == "GET":
+        member = db.light.find_one({'name': name})
+        print("GET")
+        print(member)
+        return render_template("update.html", member = member)
+
+    if request.method == "POST":
+        updated_data = {
+            'name': request.form.get('name'),
+            'birthday': request.form.get('birthday'),
+            'address': request.form.get('address'),
+            'sex': request.form.get('sex'),
+            'light': request.form.get('light')
+        }
+        print("POST:")
+        print(updated_data)
+        db.light.update_one({'name': name}, {'$set': updated_data})
+        return redirect(url_for('table'))
 
 if __name__ == '__main__':
     #定義app在8080埠運行
